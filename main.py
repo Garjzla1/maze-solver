@@ -7,6 +7,7 @@ class NullNode:
     def __init__(self):
         self.moveable = False
         self.prev_val = None
+        self.value = None
         self.x = False
         self.y = False
         self.is_end = False
@@ -19,6 +20,7 @@ class NullNode:
 
     def __str__(self):
         return "NULL_NODE"
+
 
 class Node:
     def __init__(self, x, y, moveable: bool, grid):
@@ -111,10 +113,10 @@ class Grid:
             for x, node in enumerate(row):
                 if not node.moveable:
                     continue
-                top = self.grid[y-1][x] if y != 0 else NullNode()
+                top = self.grid[y+1][x] if y != y_max else NullNode()
                 right = self.grid[y][x+1] if x != x_max else NullNode()
-                bottom = self.grid[y+1][x] if y != y_max else NullNode()
-                left = self.grid[y][x-1] if x != x_max else NullNode()
+                bottom = self.grid[y-1][x] if y != 0 else NullNode()
+                left = self.grid[y][x-1] if x != 0 else NullNode()
                 # neighbors are clockwise
                 node.neighbors.append(top)
                 node.neighbors.append(right)
@@ -201,6 +203,7 @@ def main():
     solution = grid.find_solution_dumb()
     while solution:
         print(solution.pop())
+
 
 """
 solve maze make brain go burr
