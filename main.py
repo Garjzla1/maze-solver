@@ -190,11 +190,10 @@ def main():
         with open(sys.argv[1], "r") as input_buffer:
             grid.set_grid(input_buffer.readlines())
     else:
-        reading = True
-        while reading:
+        while True:
             row = input()
             if row == "":
-                reading = False
+                break
             grid.add_row(row)
 
     grid.set_neighbors_and_end()
