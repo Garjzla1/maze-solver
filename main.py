@@ -160,7 +160,7 @@ class Grid:
 
             node = self.queue.pop()
             if node is None:
-                node = NullNode()
+                raise ValueError("Maze not solvable")
 
         node.value = node.prev_val + 1
         self.end_node = node
@@ -198,10 +198,20 @@ def main():
 
     grid.set_neighbors_and_end()
     grid.set_max_queue_size()
-    grid.solve()
-    solution = grid.find_solution_dumb()
+    solution = list()
+    try:
+        grid.solve()
+    except ValueError as e:
+        if str(e) == "Maze not solvable":
+            solution = None
+
+    solution = grid.find_solution_dumb() if solution is not None else False
     while solution:
         print(solution.pop())
+    if solution:
+        print("length: ", grid.end_node.val)
+    else:
+        print("no solution")
 
 
 """

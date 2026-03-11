@@ -34,5 +34,8 @@ class MyQueue:
             return
         self.tail += 1
 
+    def empty(self):
+        return [n for n in self.queue if n is not None] is False
+
     def __str__(self):
         return str(self.queue)
